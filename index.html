@@ -181,13 +181,19 @@ animation:fade 1s;
 </head>
 <body>
 
+<audio id="bgMusic" loop>
+  <source src="audio.mp3" type="audio/mpeg">
+</audio>
+  
 <div class="hero">
 
 <h1>Happy Monthsary ❤️</h1>
 
 <p>Every month with you is another chapter of my favorite love story.</p>
 
-<button onclick="scrollToLetter()">Open My Heart 💌</button>
+<button onclick="scrollToLetter(); playMusic();">
+  Open My Heart 💌
+</button>
 
 </div>
 
@@ -301,6 +307,28 @@ Made with infinite love ❤️
 
 <script>
 
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+
+function playMusic(){
+  if(!musicStarted){
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    let fade = setInterval(() => {
+      if(vol < 1){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 100);
+
+    musicStarted = true;
+  }
+}
+  
 function scrollToLetter(){
 window.scrollTo({
 top:window.innerHeight,
